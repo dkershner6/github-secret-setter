@@ -1,0 +1,32 @@
+{
+    "name": "github-secret-setter",
+    "version": "1.0.0",
+    "description": "Set GitHub Repository Secrets quickly and easily (and repeatably)",
+    "main": "dist/app.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "rimraf dist && npm run build && node ./dist/app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/dkershner6/github-secret-setter.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/dkershner6/github-secret-setter/issues"
+    },
+    "homepage": "https://github.com/dkershner6/github-secret-setter#readme",
+    "dependencies": {
+        "@octokit/rest": "^18.0.0",
+        "dotenv": "^8.2.0",
+        "tweetsodium": "0.0.5"
+    },
+    "devDependencies": {
+        "@types/node": "^14.0.14",
+        "prettier": "^2.0.5",
+        "rimraf": "^3.0.2",
+        "typescript": "^3.9.6"
+    }
+}
