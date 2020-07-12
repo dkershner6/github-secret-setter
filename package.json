@@ -1,6 +1,6 @@
 {
     "name": "github-secret-setter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Set GitHub Repository Secrets quickly and easily (and repeatably)",
     "main": "dist/app.js",
     "scripts": {

@@ -17,26 +17,34 @@ const processArgs = async () => {
 };
 
 const processArg = async (arg: string) => {
-    if (!arg.endsWith("node") && !arg.endsWith("app.js")) {
-        const repoSplit = arg.split("/");
+    try {
+        if (
+            !arg.endsWith("node") &&
+            !arg.endsWith("node.exe") &&
+            !arg.endsWith("app.js")
+        ) {
+            const repoSplit = arg.split("/");
 
-        const { data } = await octokit.actions.getRepoPublicKey({
-            owner: repoSplit[0],
-            repo: repoSplit[1],
-        });
-        const { key_id, key } = data;
-
-        for (const secretName of secretsToSet) {
-            const encryptedSecret = encrypt(process.env[secretName], key);
-            await octokit.actions.createOrUpdateRepoSecret({
+            const { data } = await octokit.actions.getRepoPublicKey({
                 owner: repoSplit[0],
                 repo: repoSplit[1],
-                key_id,
-                secret_name: secretName,
-                encrypted_value: encryptedSecret,
             });
-            console.log(`Secret ${secretName} set on ${arg}`);
+            const { key_id, key } = data;
+
+            for (const secretName of secretsToSet) {
+                const encryptedSecret = encrypt(process.env[secretName], key);
+                await octokit.actions.createOrUpdateRepoSecret({
+                    owner: repoSplit[0],
+                    repo: repoSplit[1],
+                    key_id,
+                    secret_name: secretName,
+                    encrypted_value: encryptedSecret,
+                });
+                console.log(`Secret ${secretName} set on ${arg}`);
+            }
         }
+    } catch (error) {
+        console.error(arg, error);
     }
 };
 
